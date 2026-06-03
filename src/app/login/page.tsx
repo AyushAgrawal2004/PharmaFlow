@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { KeyRound, Mail, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
@@ -132,8 +133,14 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-slate-800/80 text-center">
-          <p className="text-xs text-slate-500">
+        <div className="mt-8 pt-6 border-t border-slate-800/80 text-center space-y-3.5">
+          <p className="text-xs text-slate-400">
+            Need an operator account?{' '}
+            <Link href="/signup" className="text-teal-400 hover:text-teal-300 font-bold transition-colors">
+              Create Seller Account
+            </Link>
+          </p>
+          <p className="text-[10px] text-slate-500">
             For demonstration credentials, please check the system seed instructions.
           </p>
         </div>
