@@ -1,0 +1,67 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  SELLER
+}
+
+enum OrderStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  role      Role     @default(SELLER)
+  createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Product {
+  id               String      @id @default(cuid())
+  name             String
+  sku              String      @unique
+  description      String?
+  category         String?
+  baseUnit         String      // 'g', 'mL', or 'item'
+  unit             String      @default("item") // 'g', 'kg', 'mL', 'L', or 'item'
+  pricePerBaseUnit Decimal     // e.g. price per 1g, 1mL, or 1item (Decimal for precision)
+  stockQuantity    Decimal     // stored in base unit (Decimal for precision)
+  minPurchase      Decimal     @default(0) // minimum quantity in base unit
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  orderItems       OrderItem[]
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  status     OrderStatus @default(PENDING)
+  totalPrice Decimal     // Decimal for precision
+  createdAt  DateTime    @default(now())
+  items      OrderItem[]
+}
+
+model OrderItem {
+  id                String  @id @default(cuid())
+  orderId           String
+  order             Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId         String
+  product           Product @relation(fields: [productId], references: [id])
+  orderedQuantity   Decimal // Quantity in ordered unit (e.g. 1.5)
+  orderedUnit       String  // Unit ordered (e.g. 'kg')
+  convertedQuantity Decimal // Quantity in base unit (e.g. 1500)
+  price             Decimal // Total price calculated for this item (Decimal for precision)
+}
