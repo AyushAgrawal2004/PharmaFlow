@@ -1,160 +1,139 @@
-# Inventory & Quotation Management System
+# 🧬 PharmaFlow - Precision Pharmacy Inventory OS
 
-A production-grade, full-stack inventory tracking and quotation management system built with Next.js App Router, TypeScript, TailwindCSS, Prisma ORM, Neon PostgreSQL, and NextAuth credentials authentication.
+![PharmaFlow Banner](public/pharmaflow_banner.png)
 
----
-
-## Tech Stack
-
-- **Frontend**: Next.js (App Router), TypeScript, TailwindCSS, Lucide Icons
-- **Backend**: Server Actions, NextAuth Credentials Provider
-- **Database**: Neon PostgreSQL, Prisma ORM
-- **Driver Adapter**: `@prisma/adapter-neon` with `@neondatabase/serverless` (fully compliant with Prisma 7)
-- **Deployment**: Vercel ready
+A production-ready, highly aesthetic pharmacy inventory tracking and medication billing system built with Next.js App Router, TypeScript, Tailwind CSS, Prisma ORM, Neon PostgreSQL, and NextAuth credentials authentication. Designed for precision medical stock control and billing.
 
 ---
 
-## Folder Structure
+## ⚡ Tech Stack & Architecture
+
+- **Core Framework**: [Next.js 16 (App Router)](https://nextjs.org/) & React 19
+- **Type Safety**: [TypeScript](https://www.typescript.org/) & [Zod](https://zod.dev/) for data schema validation
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with class-based Native Dark Mode
+- **Database**: [Neon Serverless PostgreSQL](https://neon.tech/) (Fully serverless connection pooler adapter)
+- **Database ORM**: [Prisma v7](https://www.prisma.io/)
+- **Authentication**: [NextAuth.js v4](https://next-auth.js.org/) credentials flow
+- **Visuals & Icons**: [Lucide React](https://lucide.dev/) for sleek modern indicators
+
+---
+
+## ✨ Features & Redesign Upgrades
+
+* 🌗 **Seamless Dark Mode**: Dynamically switches background and text colors from light slate to deep space navy with Zero Flash on reload using a blocking SSR inject script.
+* 📏 **Precise Unit Management**: Allows billing and stock tracking in items, milligrams (`mg`), grams (`g`), or milliliters (`mL`). Price conversions calculations support up to **6 decimal places** for compounding chemicals.
+* 📦 **Warehouse Minimum Purchase Limits**: Custom purchase limits set on individual products are validated both on the client cart page and via server-side database transaction hooks.
+* 🔑 **Seller Operators Onboarding**: Integrated a premium glassmorphic seller signup page allowing quick self-registration for pharmacists with secure bcrypt hashing.
+* 📊 **Interactive Dashboard**: Modern interactive cards showing out-of-stock indicators, low-stock notifications, recent invoices, and custom compounding order logs.
+
+---
+
+## 📂 Project Architecture
 
 ```
 inventory-system/
 ├── prisma/
-│   ├── schema.prisma      # Prisma 7 Database schema definition
-│   └── seed.ts            # Seeding script for Admin, Seller & mock products
+│   ├── schema.prisma      # Database schema (Models: User, Product, Order, OrderItem)
+│   └── seed.ts            # Seeding script for default users & pharmacy stock
 ├── src/
 │   ├── app/
-│   │   ├── admin/         # Admin views (dashboard, products, inventory)
-│   │   ├── seller/        # Seller views (catalog list, order draft, history)
-│   │   ├── login/         # Highly aesthetic credentials login portal
-│   │   ├── api/           # Route handlers for NextAuth auth flow
-│   │   ├── layout.tsx     # Main wrapper injecting providers
-│   │   └── page.tsx       # Root index implementing route session redirects
-│   ├── components/        # Reusable client components (e.g. Navbar)
+│   │   ├── admin/         # Admin views (Dashboard, Products CRUD, Stock warnings)
+│   │   ├── seller/        # Pharmacist views (Interactive catalog, Cart, Order log)
+│   │   ├── login/         # Sleek glassmorphic sign-in page
+│   │   ├── signup/        # Modern self-registration seller signup card
+│   │   ├── api/           # API routes (NextAuth backend endpoints)
+│   │   ├── layout.tsx     # Main wrapper injecting global themes & AuthProviders
+│   │   └── page.tsx       # Root entry redirecting users based on session role
+│   ├── components/        # Reusable elements (Navbar with Theme switcher)
 │   ├── lib/
-│   │   ├── auth.ts        # NextAuth options & credentials verification
-│   │   ├── conversions.ts # Unit conversions & precision calculations
-│   │   └── db.ts          # Global Prisma client instance with Neon adapter
-│   ├── providers/         # Context wrappers (e.g. AuthProvider)
-│   ├── types/             # Custom typescript typings (e.g. next-auth.d.ts)
-│   └── middleware.ts      # Middleware for route protection
-├── tsconfig.json          # TS config mapping import alias @/* to ./src/*
-├── prisma.config.ts       # Prisma 7 configurations mapping Schema & URL
-├── .env                   # Local environment secret variables
-└── README.md              # Project documentation
+│   │   ├── auth.ts        # NextAuth settings & encrypted credentials validation
+│   │   ├── conversions.ts # Multi-unit decimal calculations
+│   │   └── db.ts          # Global Prisma adapter connected to Neon PostgreSQL
+│   ├── providers/         # Global provider contexts (Theme Context, NextAuth Session)
+│   ├── types/             # TypeScript type overrides & interface declarations
+│   └── middleware.ts      # Edge middleware route protection (forces login)
+├── prisma.config.ts       # Database schema compile directives
+└── package.json           # Scripts and dependency versions
 ```
 
 ---
 
-## Database Schema
+## 🧮 Conversion & Precision Math
 
-The database model is defined inside `prisma/schema.prisma` and focuses on strict relations and precise billing calculations:
+To prevent floating-point rounding errors (like `0.1 + 0.2 = 0.30000000000000004`), PharmaFlow converts all fractional weight and volume quantities into the **lowest common denominator base unit** inside Neon DB.
 
-- **User**: Represents staff accounts with defined roles (`ADMIN` or `SELLER`).
-- **Product**: Represents warehouse stock. Stock quantities and base units are stored in base format (`g`, `mL`, or `item`).
-- **Order**: Represents quotation sheets submitted by sellers. Stores user reference, processing status, and total price.
-- **OrderItem**: Represents products on a quotation. Stores ordered quantity/unit alongside base converted quantity/price to ensure historical tracking.
+### 📐 Measurement Rules
+1. **Weight**: Stored in **grams (`g`)**.
+   - Input `2.5 kg` is stored in DB as `2500`.
+   - Conversions: `1 kg = 1000 g`.
+2. **Volume**: Stored in **milliliters (`mL`)**.
+   - Input `1.5 L` is stored in DB as `1500`.
+   - Conversions: `1 L = 1000 mL`.
+3. **Count**: Stored as **item (`item`)**.
+   - Conversions: `1 item = 1 item`.
 
-All price, quantity, and subtotal columns are stored as **Decimal** to avoid floating-point precision loss.
+All calculations are executed using `decimal.js` internally before storing or displaying numbers, preserving precision up to 6 decimal places for custom prescription compounds:
 
----
-
-## Conversion Strategy
-
-All measurements are stored in their lowest common denominator base unit internally. This ensures consistency and prevents decimal rounding errors across multiple calculations.
-
-### Supported Conversions
-- **Weight**: 
-  - Standard User Unit: `kg` (Kilograms) or `g` (Grams)
-  - Database Storage Unit: `g` (Grams)
-  - Conversion rule: `1 kg = 1000 g`
-- **Volume**: 
-  - Standard User Unit: `L` (Liters) or `mL` (Milliliters)
-  - Database Storage Unit: `mL` (Milliliters)
-  - Conversion rule: `1 L = 1000 mL`
-- **Count**: 
-  - Standard User Unit: `item` (Items)
-  - Database Storage Unit: `item` (Items)
-  - Conversion rule: `1 item = 1 item`
-
-Conversion functions are centralized inside `src/lib/conversions.ts` and convert numbers to Decimal before performing mathematical transformations.
+$$\text{Subtotal} = \text{Converted Quantity in Base Unit} \times \text{Price Per Base Unit}$$
 
 ---
 
-## Pricing Strategy
+## 🔐 Credentials Seeding
 
-Prices are stored per internal base unit to simplify billing math:
+The seed data provides two default roles out of the box:
 
-$$\text{Price Per Base Unit} = \frac{\text{Price Per User Unit}}{\text{Conversion Factor}}$$
-
-### Example: Basmati Rice (₹120 per kg)
-- Display Unit: `kg`
-- Internal Base Unit: `g`
-- Internal Price: `120 / 1000 = ₹0.12` per gram
-- Order Checkout: If a customer buys `500g`:
-  - Quantity in base unit: `500g`
-  - Subtotal calculation: `500 * ₹0.12 = ₹60.00`
-- Order Checkout: If a customer buys `2.5kg`:
-  - Quantity in base unit: `2.5 * 1000 = 2500g`
-  - Subtotal calculation: `2500 * ₹0.12 = ₹300.00`
+| Role | Username / Email | Password | Access Rights |
+| :--- | :--- | :--- | :--- |
+| **`ADMIN`** | `admin@inventory.com` | `Admin123!` | Full stock CRUD, warehouse dashboard, stock management |
+| **`SELLER`** | `seller@inventory.com` | `Seller123!` | Product ordering catalog, shopping cart, private order log |
 
 ---
 
-## Credentials
+## 🚀 Quick Local Setup
 
-The system seeds the database with the following demo credentials:
+Follow these simple commands to run PharmaFlow locally on your machine.
 
-| Role | Email | Password |
-| :--- | :--- | :--- |
-| **ADMIN** | `admin@inventory.com` | `Admin123!` |
-| **SELLER** | `seller@inventory.com` | `Seller123!` |
+### 1. Install Dependencies
+Clone the repository and install packages:
+```bash
+npm install
+```
 
----
-
-## Setup & Local Development
-
-### 1. Configure Environment Variables
-Open the `.env` file in the root of the project and replace the connection placeholder with your actual Neon PostgreSQL credentials:
-
+### 2. Configure Environment Variables
+Create a `.env` file in the root directory:
 ```env
+# Neon PostgreSQL Connection URL
 DATABASE_URL="postgresql://neondb_owner:YOUR_NEON_PASSWORD@ep-silent-bonus-ao12ncgr.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
-NEXTAUTH_SECRET="f6c8d76a2e4e1a0b3c5d8e9f0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t"
+
+# NextAuth Configuration
+NEXTAUTH_SECRET="your-32-char-random-secret-here"
 NEXTAUTH_URL="http://localhost:3000"
 ```
 
-### 2. Run Database Migrations
-Apply the Prisma schema to your PostgreSQL database:
-
+### 3. Synchronize Database Schema
+Push the schema structure to your Neon database:
 ```bash
-npx prisma migrate dev --name init
+npx prisma db push
 ```
 
-### 3. Seed Database
-Load the default credentials and mock products into the database:
-
+### 4. Seed Seed-Data
+Load default admin, seller accounts, and mock chemical items:
 ```bash
 npx prisma db seed
 ```
 
-### 4. Run Development Server
-Start the local Next.js development server:
-
+### 5. Launch Development server
 ```bash
 npm run dev
 ```
-
-The application will run on `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000) to view the portal.
 
 ---
 
-## Deployment
+## ☁️ Vercel Deployment
 
-Deploying this project is fully compatible with Vercel:
+PharmaFlow is optimized for Vercel:
 
-1. Connect your GitHub repository to Vercel.
-2. In Vercel Project Settings, add the environment variables:
-   - `DATABASE_URL` (Your Neon connection URL)
-   - `NEXTAUTH_SECRET` (A secure random string)
-   - `NEXTAUTH_URL` (Your deployed app's main URL, e.g. `https://your-app.vercel.app`)
-3. Use the following build commands (automatic on Next.js setup):
-   - **Build Command**: `npx prisma generate && next build`
-   - **Install Command**: `npm install --legacy-peer-deps`
+1. **Prisma Client Hooks**: The codebase includes a `postinstall` script in `package.json` to compile the database engine correctly on Vercel deployment servers.
+2. **Set Environment Variables**: Add `DATABASE_URL`, `NEXTAUTH_SECRET`, and `NEXTAUTH_URL` under your Vercel Project Environment Settings.
+3. **Redeploy**: Ensure you redeploy the latest changes to allow environment variables to take effect!
