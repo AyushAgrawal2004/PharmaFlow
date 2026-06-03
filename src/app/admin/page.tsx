@@ -140,8 +140,8 @@ export default function AdminDashboardPage() {
       {toastMessage && (
         <div className={`fixed bottom-6 right-6 z-50 px-5 py-4 rounded-2xl shadow-xl border transition-all duration-300 flex items-center gap-3 ${
           toastMessage.type === 'success' 
-            ? 'bg-slate-900 border-emerald-500/20 text-emerald-400' 
-            : 'bg-slate-900 border-rose-500/20 text-rose-400'
+            ? 'bg-slate-900 dark:bg-slate-950 border-emerald-500/20 text-emerald-400' 
+            : 'bg-slate-900 dark:bg-slate-950 border-rose-500/20 text-rose-400'
         }`}>
           <span className={`w-2 h-2 rounded-full ${toastMessage.type === 'success' ? 'bg-emerald-400 animate-ping' : 'bg-rose-400'}`} />
           <span className="text-xs font-semibold tracking-wide">{toastMessage.text}</span>
@@ -149,14 +149,14 @@ export default function AdminDashboardPage() {
       )}
 
       {/* Header Panel */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/60 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs">
         <div className="flex items-center gap-4">
-          <div className="p-3.5 bg-indigo-50 text-indigo-600 rounded-2xl border border-indigo-100/60">
+          <div className="p-3.5 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-2xl border border-indigo-100/60 dark:border-indigo-900/50">
             <Activity className="w-6 h-6 animate-pulse" />
           </div>
           <div>
-            <h1 className="text-xl font-black tracking-tight text-slate-800">Admin Operations</h1>
-            <p className="text-xs font-medium text-slate-400 mt-0.5">Approve compounding drafts, audit pharmacy bills, and monitor earnings statistics</p>
+            <h1 className="text-xl font-black tracking-tight text-slate-800 dark:text-slate-100">Admin Operations</h1>
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mt-0.5">Approve compounding drafts, audit pharmacy bills, and monitor earnings statistics</p>
           </div>
         </div>
       </div>
@@ -164,78 +164,78 @@ export default function AdminDashboardPage() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Revenue */}
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/60 shadow-xs flex items-center gap-3 relative overflow-hidden group">
+        <div className="bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs flex items-center gap-3 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/5 rounded-full blur-xl pointer-events-none" />
-          <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100/40">
+          <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-100/40 dark:border-emerald-900/30">
             <DollarSign className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Earnings</span>
-            <span className="text-base font-black text-slate-800 mt-0.5 truncate max-w-[130px] block">{formatPrice(stats.totalRevenue)}</span>
+            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Earnings</span>
+            <span className="text-base font-black text-slate-800 dark:text-slate-100 mt-0.5 truncate max-w-[130px] block">{formatPrice(stats.totalRevenue)}</span>
           </div>
         </div>
 
         {/* Pending */}
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/60 shadow-xs flex items-center gap-3 relative overflow-hidden group">
+        <div className="bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs flex items-center gap-3 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/5 rounded-full blur-xl pointer-events-none" />
-          <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 border border-amber-100/40">
+          <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-100/40 dark:border-amber-900/30">
             <Clock className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Pending Approval</span>
-            <span className="text-base font-black text-slate-800 mt-0.5">{stats.pending}</span>
+            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Pending Approval</span>
+            <span className="text-base font-black text-slate-800 dark:text-slate-100 mt-0.5">{stats.pending}</span>
           </div>
         </div>
 
         {/* Approved */}
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/60 shadow-xs flex items-center gap-3 relative overflow-hidden group">
+        <div className="bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs flex items-center gap-3 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/5 rounded-full blur-xl pointer-events-none" />
-          <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100/40">
+          <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100/40 dark:border-indigo-900/30">
             <CheckCircle className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Approved</span>
-            <span className="text-base font-black text-slate-800 mt-0.5">{stats.approved}</span>
+            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Approved</span>
+            <span className="text-base font-black text-slate-800 dark:text-slate-100 mt-0.5">{stats.approved}</span>
           </div>
         </div>
 
         {/* Completed */}
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/60 shadow-xs flex items-center gap-3 relative overflow-hidden group">
+        <div className="bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs flex items-center gap-3 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-16 h-16 bg-teal-500/5 rounded-full blur-xl pointer-events-none" />
-          <div className="p-2.5 rounded-xl bg-teal-50 text-teal-600 border border-teal-100/40">
+          <div className="p-2.5 rounded-xl bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 border border-teal-100/40 dark:border-teal-900/30">
             <Truck className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Dispensed</span>
-            <span className="text-base font-black text-slate-800 mt-0.5">{stats.completed}</span>
+            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Dispensed</span>
+            <span className="text-base font-black text-slate-800 dark:text-slate-100 mt-0.5">{stats.completed}</span>
           </div>
         </div>
 
         {/* Rejected */}
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/60 shadow-xs flex items-center gap-3 relative overflow-hidden group">
+        <div className="bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs flex items-center gap-3 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-16 h-16 bg-rose-500/5 rounded-full blur-xl pointer-events-none" />
-          <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600 border border-rose-100/40">
+          <div className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-100/40 dark:border-rose-900/30">
             <XCircle className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Rejected</span>
-            <span className="text-base font-black text-slate-800 mt-0.5">{stats.rejected}</span>
+            <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Rejected</span>
+            <span className="text-base font-black text-slate-800 dark:text-slate-100 mt-0.5">{stats.rejected}</span>
           </div>
         </div>
       </div>
 
       {/* Orders Filter Section */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200/60 shadow-xs">
-        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs">
+        <h2 className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-550 flex items-center gap-2">
           <ClipboardList className="w-4 h-4 text-teal-600" />
           <span>Prescriptions & Orders List</span>
         </h2>
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Status:</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="py-1.5 pl-2.5 pr-8 rounded-lg border border-slate-200 text-[10px] font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white cursor-pointer"
+            className="py-1.5 pl-2.5 pr-8 rounded-lg border border-slate-200 dark:border-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 cursor-pointer"
           >
             <option value="All">All Statuses</option>
             <option value="PENDING">Pending</option>
@@ -247,7 +247,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white rounded-3xl border border-slate-200/60 shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs overflow-hidden">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-24 gap-3 text-slate-400">
             <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
@@ -259,7 +259,7 @@ export default function AdminDashboardPage() {
             <span className="text-xs font-semibold">No order logs found.</span>
           </div>
         ) : (
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
             {orders.map((order) => {
               const isExpanded = expandedOrderId === order.id;
               const formattedDate = new Date(order.createdAt).toLocaleDateString('en-IN', {
@@ -270,46 +270,46 @@ export default function AdminDashboardPage() {
                 minute: '2-digit'
               });
 
-              let badgeClass = 'bg-amber-50 border-amber-200 text-amber-700';
-              if (order.status === 'APPROVED') badgeClass = 'bg-indigo-50 border-indigo-200 text-indigo-700';
-              else if (order.status === 'COMPLETED') badgeClass = 'bg-teal-50 border-teal-200 text-teal-700';
-              else if (order.status === 'REJECTED') badgeClass = 'bg-rose-50 border-rose-200 text-rose-700';
+              let badgeClass = 'bg-amber-50 border-amber-200 dark:bg-amber-955/20 dark:border-amber-900/30 text-amber-700 dark:text-amber-400';
+              if (order.status === 'APPROVED') badgeClass = 'bg-indigo-50 border-indigo-200 dark:bg-indigo-955/20 dark:border-indigo-900/30 text-indigo-700 dark:text-indigo-400';
+              else if (order.status === 'COMPLETED') badgeClass = 'bg-teal-50 border-teal-200 dark:bg-teal-955/20 dark:border-teal-900/30 text-teal-700 dark:text-teal-400';
+              else if (order.status === 'REJECTED') badgeClass = 'bg-rose-50 border-rose-200 dark:bg-rose-955/20 dark:border-rose-900/30 text-rose-700 dark:text-rose-400';
 
               return (
-                <div key={order.id} className="transition-all hover:bg-slate-50/15">
+                <div key={order.id} className="transition-all hover:bg-slate-50/15 dark:hover:bg-slate-950/20">
                   {/* Order Main Row */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-5 gap-4">
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => toggleExpandOrder(order.id)}
-                        className="p-2 rounded-xl hover:bg-slate-100 text-slate-450 hover:text-slate-700 transition-all cursor-pointer border border-transparent hover:border-slate-200/50"
+                        className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-950 text-slate-450 hover:text-slate-700 dark:text-slate-550 dark:hover:text-slate-350 transition-all cursor-pointer border border-transparent hover:border-slate-200/50 dark:hover:border-slate-800"
                       >
                         {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-extrabold text-slate-800 text-xs tracking-wider">ORDER #{order.id.slice(-6).toUpperCase()}</span>
+                          <span className="font-extrabold text-slate-800 dark:text-slate-200 text-xs tracking-wider">ORDER #{order.id.slice(-6).toUpperCase()}</span>
                           <span className={`px-2 py-0.5 rounded-full text-[9px] font-black border tracking-wider ${badgeClass}`}>
                             {order.status}
                           </span>
                         </div>
-                        <div className="flex items-center gap-3 mt-1.5 text-[10px] text-slate-450 font-medium">
-                          <span className="flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-1.5 py-0.5 rounded text-slate-600">
-                            <User className="w-3 h-3 text-slate-450" />
+                        <div className="flex items-center gap-3 mt-1.5 text-[10px] text-slate-450 dark:text-slate-500 font-medium">
+                          <span className="flex items-center gap-1 bg-slate-50 dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800/80 px-1.5 py-0.5 rounded text-slate-650 dark:text-slate-400">
+                            <User className="w-3 h-3 text-slate-450 dark:text-slate-550" />
                             {order.user.name || order.user.email}
                           </span>
-                          <span className="flex items-center gap-1 bg-slate-50 border border-slate-200/60 px-1.5 py-0.5 rounded text-slate-600">
-                            <Calendar className="w-3 h-3 text-slate-450" />
+                          <span className="flex items-center gap-1 bg-slate-50 dark:bg-slate-950 border border-slate-200/60 dark:border-slate-800/80 px-1.5 py-0.5 rounded text-slate-650 dark:text-slate-400">
+                            <Calendar className="w-3 h-3 text-slate-450 dark:text-slate-550" />
                             {formattedDate}
                           </span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between sm:justify-end gap-6 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100">
+                    <div className="flex items-center justify-between sm:justify-end gap-6 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 dark:border-slate-800">
                       <div className="text-right">
-                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Total Billing</span>
-                        <span className="text-sm font-black text-slate-800">{formatPrice(order.totalPrice)}</span>
+                        <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest block">Total Billing</span>
+                        <span className="text-sm font-black text-slate-800 dark:text-slate-200">{formatPrice(order.totalPrice)}</span>
                       </div>
 
                       {/* Status Selector dropdown */}
@@ -318,7 +318,7 @@ export default function AdminDashboardPage() {
                           value={order.status}
                           disabled={updatingId === order.id}
                           onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                          className="py-1.5 pl-2.5 pr-8 rounded-lg border border-slate-200 text-[10px] font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white cursor-pointer disabled:opacity-40"
+                          className="py-1.5 pl-2.5 pr-8 rounded-lg border border-slate-200 dark:border-slate-800 text-[10px] font-bold text-slate-605 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-955 cursor-pointer disabled:opacity-40"
                         >
                           <option value="PENDING">Pending</option>
                           <option value="APPROVED">Approved</option>
@@ -331,12 +331,12 @@ export default function AdminDashboardPage() {
 
                   {/* Order Expanded Details */}
                   {isExpanded && (
-                    <div className="bg-slate-50/50 p-4 sm:p-5 border-t border-b border-slate-100 space-y-4 animate-in slide-in-from-top-1 duration-200">
-                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Compounded items invoice breakdown</span>
-                      <div className="bg-white rounded-2xl border border-slate-200/50 overflow-hidden shadow-xs">
+                    <div className="bg-slate-50/50 dark:bg-slate-950/20 p-4 sm:p-5 border-t border-b border-slate-100 dark:border-slate-800 space-y-4 animate-in slide-in-from-top-1 duration-200">
+                      <span className="text-[9px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-widest">Compounded items invoice breakdown</span>
+                      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/50 dark:border-slate-800/80 overflow-hidden shadow-xs">
                         <table className="w-full text-left text-[10px] border-collapse">
                           <thead>
-                            <tr className="bg-slate-50/70 border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider">
+                            <tr className="bg-slate-50/70 dark:bg-slate-950/40 border-b border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
                               <th className="py-2.5 px-4 font-bold">Item Details</th>
                               <th className="py-2.5 px-4 font-bold">Ordered Quantity</th>
                               <th className="py-2.5 px-4 text-center font-bold">Billing Unit Price</th>
@@ -344,7 +344,7 @@ export default function AdminDashboardPage() {
                               <th className="py-2.5 px-4 text-right font-bold">Subtotal</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-slate-100">
+                          <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                             {order.items.map((item) => {
                               const displayUnit = item.orderedUnit;
 
@@ -360,19 +360,19 @@ export default function AdminDashboardPage() {
                               const priceDisplay = getPriceForDisplay(basePriceVal, displayUnit);
 
                               return (
-                                <tr key={item.id} className="text-slate-700 hover:bg-slate-50/30">
+                                <tr key={item.id} className="text-slate-700 dark:text-slate-300 hover:bg-slate-50/30 dark:hover:bg-slate-950/20">
                                   <td className="py-3.5 px-4">
-                                    <div className="font-bold text-slate-800 text-xs">{item.product.name}</div>
-                                    <div className="text-[9px] text-slate-400 font-mono mt-0.5">SKU: {item.product.sku}</div>
+                                    <div className="font-bold text-slate-850 dark:text-slate-250 text-xs">{item.product.name}</div>
+                                    <div className="text-[9px] text-slate-400 dark:text-slate-550 font-mono mt-0.5">SKU: {item.product.sku}</div>
                                   </td>
-                                  <td className="py-3.5 px-4 font-bold text-slate-650">{ordQtyStr}</td>
+                                  <td className="py-3.5 px-4 font-bold text-slate-650 dark:text-slate-350">{ordQtyStr}</td>
                                   <td className="py-3.5 px-4 text-center">
-                                    <span className="text-[9px] bg-slate-50 px-2 py-0.5 rounded border border-slate-200 font-bold text-slate-600">
+                                    <span className="text-[9px] bg-slate-50 dark:bg-slate-950 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-800 font-bold text-slate-600 dark:text-slate-400">
                                       {formatPrice(priceDisplay)} / {displayUnit}
                                     </span>
                                   </td>
                                   <td className="py-3.5 px-4 font-mono text-slate-500">{baseQtyStr}</td>
-                                  <td className="py-3.5 px-4 text-right font-black text-slate-850">
+                                  <td className="py-3.5 px-4 text-right font-black text-slate-850 dark:text-slate-200">
                                     {formatPrice(item.price)}
                                   </td>
                                 </tr>

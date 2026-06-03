@@ -3,11 +3,21 @@
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Package, ClipboardList, LogOut, User, Layers } from 'lucide-react';
+import { useTheme } from '@/providers/theme-provider';
+import { 
+  LayoutDashboard, 
+  Package, 
+  ClipboardList, 
+  LogOut, 
+  Layers,
+  Sun,
+  Moon
+} from 'lucide-react';
 
 export default function Navbar() {
   const { data: session } = useSession();
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
   if (!session) return null;
 
@@ -30,7 +40,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-950/75 text-slate-100 border-b border-slate-800/50 backdrop-blur-xl px-4 sm:px-6 py-3.5 shadow-lg shadow-slate-950/15">
+    <nav className="sticky top-0 z-50 bg-slate-950/75 dark:bg-slate-950/90 text-slate-100 border-b border-slate-800/50 dark:border-slate-800/80 backdrop-blur-xl px-4 sm:px-6 py-3.5 shadow-lg shadow-slate-950/15">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center gap-3 group">
@@ -45,7 +55,7 @@ export default function Navbar() {
               Inventory OS
             </span>
           </div>
-          <span className="text-[9px] font-bold bg-teal-500/10 border border-teal-500/30 text-teal-400 px-2 py-0.5 rounded-full select-none ml-1">
+          <span className="text-[9px] font-bold bg-teal-500/10 border border-teal-500/30 text-teal-400 px-2 py-0.5 rounded-full select-none ml-1 animate-pulse">
             {role}
           </span>
         </div>
@@ -73,24 +83,33 @@ export default function Navbar() {
         </div>
 
         {/* User Info & Actions */}
-        <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-400 bg-slate-900/50 border border-slate-850 px-3 py-1.5 rounded-xl">
-            <div className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping" />
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-450 bg-slate-900/50 dark:bg-slate-900/80 border border-slate-850 dark:border-slate-800 px-3 py-1.5 rounded-xl">
+            <div className="w-1.5 h-1.5 rounded-full bg-teal-450 animate-ping bg-teal-400" />
             <span className="max-w-[120px] truncate">{session.user.name || session.user.email}</span>
           </div>
+
+          {/* Theme switcher */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-350 hover:text-white border border-slate-800 transition-all cursor-pointer active:scale-95 shadow-xs"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4 text-amber-400" />}
+          </button>
 
           <button
             onClick={handleSignOut}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-850 hover:text-white border border-slate-800 text-slate-300 font-semibold text-xs active:scale-95 transition-all duration-150 cursor-pointer shadow-xs"
           >
-            <LogOut className="w-3.5 h-3.5 text-slate-400" />
-            <span>Sign Out</span>
+            <LogOut className="w-3.5 h-3.5 text-slate-450" />
+            <span className="hidden sm:inline">Sign Out</span>
           </button>
         </div>
       </div>
 
       {/* Mobile Links */}
-      <div className="mt-3 pt-2.5 border-t border-slate-900/65 flex md:hidden items-center justify-around gap-2">
+      <div className="mt-3 pt-2.5 border-t border-slate-900/65 dark:border-slate-900/80 flex md:hidden items-center justify-around gap-2">
         {navLinks.map((link) => {
           const Icon = link.icon;
           const isActive = pathname === link.href || pathname.startsWith(link.href + '/');

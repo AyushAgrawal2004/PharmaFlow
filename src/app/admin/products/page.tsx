@@ -216,13 +216,13 @@ export default function AdminProductsPage() {
 
   // Get nice color pill based on category
   const getCategoryColor = (cat: string | null) => {
-    if (!cat) return 'bg-slate-100 text-slate-700 border-slate-200';
+    if (!cat) return 'bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-400 border-slate-200 dark:border-slate-800';
     const name = cat.toLowerCase();
-    if (name.includes('prescription') || name.includes('rx')) return 'bg-indigo-50 text-indigo-700 border-indigo-100/70';
-    if (name.includes('otc') || name.includes('counter')) return 'bg-teal-50 text-teal-700 border-teal-100/70';
-    if (name.includes('compounding') || name.includes('raw')) return 'bg-purple-50 text-purple-700 border-purple-100/70';
-    if (name.includes('syrup') || name.includes('liquid')) return 'bg-amber-50 text-amber-700 border-amber-100/70';
-    return 'bg-slate-50 text-slate-700 border-slate-200/60';
+    if (name.includes('prescription') || name.includes('rx')) return 'bg-indigo-50 dark:bg-indigo-955/20 text-indigo-700 dark:text-indigo-400 border-indigo-100/70 dark:border-indigo-900/35';
+    if (name.includes('otc') || name.includes('counter')) return 'bg-teal-50 dark:bg-teal-955/20 text-teal-700 dark:text-teal-400 border-teal-100/70 dark:border-teal-900/35';
+    if (name.includes('compounding') || name.includes('raw')) return 'bg-purple-50 dark:bg-purple-955/20 text-purple-700 dark:text-purple-400 border-purple-100/70 dark:border-purple-900/35';
+    if (name.includes('syrup') || name.includes('liquid')) return 'bg-amber-50 dark:bg-amber-955/20 text-amber-700 dark:text-amber-400 border-amber-100/70 dark:border-amber-900/35';
+    return 'bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-455 border-slate-200/60 dark:border-slate-800/80';
   };
 
   return (
@@ -231,8 +231,8 @@ export default function AdminProductsPage() {
       {toastMessage && (
         <div className={`fixed bottom-6 right-6 z-50 px-5 py-4 rounded-2xl shadow-xl border transition-all duration-300 flex items-center gap-3 ${
           toastMessage.type === 'success' 
-            ? 'bg-slate-900 border-emerald-500/20 text-emerald-400' 
-            : 'bg-slate-900 border-rose-500/20 text-rose-400'
+            ? 'bg-slate-900 dark:bg-slate-955 border-emerald-500/20 text-emerald-400' 
+            : 'bg-slate-900 dark:bg-slate-955 border-rose-500/20 text-rose-400'
         }`}>
           <span className={`w-2 h-2 rounded-full ${toastMessage.type === 'success' ? 'bg-emerald-400 animate-ping' : 'bg-rose-400'}`} />
           <span className="text-xs font-semibold tracking-wide">{toastMessage.text}</span>
@@ -240,14 +240,14 @@ export default function AdminProductsPage() {
       )}
 
       {/* Header Panel */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/60 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs">
         <div className="flex items-center gap-4">
-          <div className="p-3.5 bg-teal-50 text-teal-600 rounded-2xl border border-teal-100/60">
+          <div className="p-3.5 bg-teal-50 dark:bg-teal-955/20 text-teal-600 dark:text-teal-405 rounded-2xl border border-teal-100/60 dark:border-teal-900/40">
             <Layers className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl font-black tracking-tight text-slate-800">Medicines Catalog</h1>
-            <p className="text-xs font-medium text-slate-400 mt-0.5">Configure pharmaceutical inventories, chemical raw materials, and precise pricing</p>
+            <h1 className="text-xl font-black tracking-tight text-slate-800 dark:text-slate-100">Medicines Catalog</h1>
+            <p className="text-xs font-medium text-slate-400 dark:text-slate-500 mt-0.5">Configure pharmaceutical inventories, chemical raw materials, and precise pricing</p>
           </div>
         </div>
         <button
@@ -260,7 +260,7 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Filters Card */}
-      <div className="flex flex-col md:flex-row gap-4 bg-white p-4.5 rounded-2xl border border-slate-200/60 shadow-xs">
+      <div className="flex flex-col md:flex-row gap-4 bg-white dark:bg-slate-900 p-4.5 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs">
         <div className="relative flex-1">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
@@ -268,7 +268,7 @@ export default function AdminProductsPage() {
             placeholder="Search catalog by name, SKU, or active ingredients..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-xs font-medium input-focus-ring"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-350 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all text-xs font-medium bg-white dark:bg-slate-950 input-focus-ring"
           />
         </div>
         <div className="flex items-center gap-3">
@@ -276,7 +276,7 @@ export default function AdminProductsPage() {
           <select
             value={categoryFilter}
             onChange={(e) => { setCategoryFilter(e.target.value); setCurrentPage(1); }}
-            className="py-2.5 pl-3 pr-8 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all bg-white cursor-pointer"
+            className="py-2.5 pl-3 pr-8 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-350 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 cursor-pointer"
           >
             {categories.map((cat) => (
               <option key={cat} value={cat}>{cat === 'All' ? 'All Categories' : cat}</option>
@@ -286,7 +286,7 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Table Container */}
-      <div className="bg-white rounded-3xl border border-slate-200/60 shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/60 dark:border-slate-800/80 shadow-xs overflow-hidden">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-24 gap-3 text-slate-400">
             <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
@@ -294,19 +294,19 @@ export default function AdminProductsPage() {
           </div>
         ) : products.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 gap-4 text-slate-400">
-            <div className="p-4 rounded-full bg-slate-50 border border-slate-100 text-slate-300">
+            <div className="p-4 rounded-full bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 text-slate-300 dark:text-slate-700">
               <PackageOpen className="w-10 h-10" />
             </div>
             <div className="text-center">
-              <h3 className="font-bold text-slate-750 text-sm">No Medications Found</h3>
-              <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">Try refining your filter parameters or create a new pharmaceutical entry.</p>
+              <h3 className="font-bold text-slate-750 dark:text-slate-300 text-sm">No Medications Found</h3>
+              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1 max-w-xs mx-auto">Try refining your filter parameters or create a new pharmaceutical entry.</p>
             </div>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left text-xs">
               <thead>
-                <tr className="bg-slate-50/70 border-b border-slate-100 text-slate-400 font-bold uppercase tracking-wider">
+                <tr className="bg-slate-50/70 dark:bg-slate-950/40 border-b border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
                   <th className="py-4 px-6 font-bold">Product Details</th>
                   <th className="py-4 px-6 font-bold">SKU</th>
                   <th className="py-4 px-6 font-bold">Category</th>
@@ -315,21 +315,21 @@ export default function AdminProductsPage() {
                   <th className="py-4 px-6 font-bold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {products.map((product) => {
                   const { priceStr, stockStr, minPurchaseVal, minPurchaseStr } = getProductDisplayValues(product);
                   const isLowStock = parseFloat(convertFromBaseUnit(product.stockQuantity, product.unit || 'item').toString()) <= 5;
                   
                   return (
-                    <tr key={product.id} className="hover:bg-slate-50/35 transition-colors group">
+                    <tr key={product.id} className="hover:bg-slate-50/35 dark:hover:bg-slate-950/20 transition-colors group">
                       <td className="py-4.5 px-6">
-                        <div className="font-bold text-slate-800 text-sm group-hover:text-teal-700 transition-colors">{product.name}</div>
+                        <div className="font-bold text-slate-800 dark:text-slate-200 text-sm group-hover:text-teal-750 dark:group-hover:text-teal-400 transition-colors">{product.name}</div>
                         {product.description && (
-                          <div className="text-[10px] text-slate-400 mt-0.5 line-clamp-1 max-w-xs">{product.description}</div>
+                          <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5 line-clamp-1 max-w-xs">{product.description}</div>
                         )}
                       </td>
                       <td className="py-4.5 px-6">
-                        <span className="font-mono text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200/60">
+                        <span className="font-mono text-[10px] font-bold bg-slate-100 dark:bg-slate-950 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded border border-slate-200/60 dark:border-slate-805/80">
                           {product.sku}
                         </span>
                       </td>
@@ -339,9 +339,9 @@ export default function AdminProductsPage() {
                         </span>
                       </td>
                       <td className="py-4.5 px-6">
-                        <div className="font-bold text-slate-750">{priceStr}</div>
+                        <div className="font-bold text-slate-700 dark:text-slate-300">{priceStr}</div>
                         {minPurchaseVal > 0 && (
-                          <div className="text-[10px] text-indigo-500 font-extrabold mt-0.5 uppercase tracking-wide">
+                          <div className="text-[10px] text-indigo-500 dark:text-indigo-400 font-extrabold mt-0.5 uppercase tracking-wide animate-pulse">
                             Min Order: {minPurchaseStr}
                           </div>
                         )}
@@ -349,8 +349,8 @@ export default function AdminProductsPage() {
                       <td className="py-4.5 px-6">
                         <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
                           isLowStock 
-                            ? 'bg-amber-50 border-amber-200 text-amber-700' 
-                            : 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                            ? 'bg-amber-50 border-amber-200 dark:bg-amber-955/20 dark:border-amber-900/35 text-amber-700 dark:text-amber-400' 
+                            : 'bg-emerald-50 border-emerald-200 dark:bg-emerald-955/20 dark:border-emerald-900/35 text-emerald-700 dark:text-emerald-400'
                         }`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${isLowStock ? 'bg-amber-500 animate-pulse' : 'bg-emerald-500'}`} />
                           {stockStr}
@@ -360,14 +360,14 @@ export default function AdminProductsPage() {
                         <div className="flex justify-end gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
                           <button
                             onClick={() => handleEditOpen(product)}
-                            className="p-2 rounded-xl text-slate-500 hover:text-teal-600 hover:bg-teal-50 border border-transparent hover:border-teal-100 transition-all cursor-pointer"
+                            className="p-2 rounded-xl text-slate-500 hover:text-teal-600 hover:bg-teal-50 dark:hover:bg-teal-955/20 border border-transparent hover:border-teal-100 dark:hover:border-teal-900/40 transition-all cursor-pointer"
                             title="Edit"
                           >
                             <Edit className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDelete(product.id)}
-                            className="p-2 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-100 transition-all cursor-pointer"
+                            className="p-2 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-955/20 border border-transparent hover:border-rose-100 dark:hover:border-rose-900/40 transition-all cursor-pointer"
                             title="Delete"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -384,22 +384,22 @@ export default function AdminProductsPage() {
 
         {/* Pagination Panel */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-slate-100 px-6 py-4 bg-slate-50/50">
-            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+          <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800/60 px-6 py-4 bg-slate-50/50 dark:bg-slate-950/20">
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold uppercase tracking-wider">
               Page {currentPage} of {totalPages}
             </span>
             <div className="flex items-center gap-1">
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                className="p-2 rounded-xl border border-slate-200 hover:bg-white text-slate-600 transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
+                className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-950 text-slate-650 dark:text-slate-350 transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
               >
                 <ChevronLeft className="w-3.5 h-3.5" />
               </button>
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                className="p-2 rounded-xl border border-slate-200 hover:bg-white text-slate-600 transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
+                className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-955 text-slate-650 dark:text-slate-350 transition-all disabled:opacity-40 disabled:pointer-events-none cursor-pointer"
               >
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
@@ -410,43 +410,43 @@ export default function AdminProductsPage() {
 
       {/* CRUD Overlaid Glassmorphic Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="w-full max-w-lg p-6 rounded-3xl bg-white border border-slate-100 shadow-2xl relative flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-955/50 dark:bg-slate-955/80 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="w-full max-w-lg p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xl relative flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-slate-450 hover:text-slate-600 transition-all cursor-pointer"
+              className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-950 text-slate-450 hover:text-slate-600 dark:text-slate-550 dark:hover:text-slate-350 transition-all cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <h2 className="text-lg font-black text-slate-800 mb-1 flex items-center gap-2">
+            <h2 className="text-lg font-black text-slate-800 dark:text-slate-100 mb-1 flex items-center gap-2">
               <FileSpreadsheet className="w-5 h-5 text-teal-600" />
               <span>{modalMode === 'create' ? 'Register New Medication' : 'Edit Medicine Details'}</span>
             </h2>
-            <p className="text-[11px] text-slate-400 mb-5 font-medium">Configure chemical specifications, preferred measuring unit, and precision pricing</p>
+            <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-5 font-medium">Configure chemical specifications, preferred measuring unit, and precision pricing</p>
 
             <form onSubmit={handleFormSubmit} className="space-y-4 overflow-y-auto pr-1 flex-1">
               {formError && (
-                <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold">
+                <div className="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-955/20 border border-rose-200 dark:border-rose-900/40 text-rose-600 dark:text-rose-400 text-xs font-semibold animate-in shake duration-200">
                   {formError}
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5 col-span-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Medicine / Compound Name *</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Medicine / Compound Name *</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Ibuprofen Powders"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-205 dark:border-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 input-focus-ring"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">SKU / Medicine Code *</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">SKU / Medicine Code *</label>
                   <input
                     type="text"
                     required
@@ -454,39 +454,39 @@ export default function AdminProductsPage() {
                     onChange={(e) => setSku(e.target.value)}
                     placeholder="e.g. PWD-IBP-100"
                     disabled={modalMode === 'edit'}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all disabled:bg-slate-50 disabled:text-slate-400 disabled:border-slate-150 uppercase input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-205 dark:border-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 disabled:bg-slate-50 disabled:dark:bg-slate-950 disabled:text-slate-400 disabled:dark:text-slate-600 disabled:border-slate-150 uppercase input-focus-ring"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Category *</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Category *</label>
                   <input
                     type="text"
                     required
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     placeholder="e.g. Compounding Raw Materials"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-250 dark:border-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 input-focus-ring"
                   />
                 </div>
 
                 <div className="space-y-1.5 col-span-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Active Ingredients & Strength</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Active Ingredients & Strength</label>
                   <textarea
                     rows={2}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Provide details about chemical strength, active ingredients, dosage form..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all resize-none input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-205 dark:border-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 resize-none input-focus-ring"
                   />
                 </div>
 
                 <div className="space-y-1.5 col-span-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pricing & Stocking Unit *</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Pricing & Stocking Unit *</label>
                   <select
                     value={unit}
                     onChange={(e) => setUnit(e.target.value as any)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white cursor-pointer input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 cursor-pointer input-focus-ring"
                   >
                     <option value="item">Items (item)</option>
                     <option value="kg">Kilograms (kg)</option>
@@ -497,7 +497,7 @@ export default function AdminProductsPage() {
                 </div>
 
                 <div className="space-y-1.5 col-span-2">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Price per Selected Unit *</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Price per Selected Unit *</label>
                   <input
                     type="number"
                     step="any"
@@ -505,12 +505,12 @@ export default function AdminProductsPage() {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     placeholder="Supports up to 6 decimals, e.g., 3.504321"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-205 dark:border-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-950 input-focus-ring"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Quantity in Stock *</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Quantity in Stock *</label>
                   <input
                     type="number"
                     step="any"
@@ -518,19 +518,19 @@ export default function AdminProductsPage() {
                     value={stock}
                     onChange={(e) => setStock(e.target.value)}
                     placeholder="e.g. 50"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-955 input-focus-ring"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Min Purchase Quantity</label>
+                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Min Purchase Quantity</label>
                   <input
                     type="number"
                     step="any"
                     value={minPurchase}
                     onChange={(e) => setMinPurchase(e.target.value)}
                     placeholder="e.g. 10 (Optional)"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-800 placeholder-slate-400 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all input-focus-ring"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-teal-500/25 focus:border-teal-500 transition-all bg-white dark:bg-slate-955 input-focus-ring"
                   />
                 </div>
               </div>
@@ -539,7 +539,7 @@ export default function AdminProductsPage() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 py-3 border border-slate-200 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-500 tracking-wider uppercase transition-all active:scale-[0.98] cursor-pointer text-center"
+                  className="flex-1 py-3 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-950 rounded-xl text-xs font-bold text-slate-500 dark:text-slate-455 tracking-wider uppercase transition-all active:scale-[0.98] cursor-pointer text-center"
                 >
                   Cancel
                 </button>
